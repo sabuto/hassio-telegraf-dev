@@ -10,6 +10,10 @@ INFLUX_SERVER=$(bashio::config 'influxDB')
 INFLUX_DB=$(bashio::config 'influx_db')
 INFLUX_UN=$(bashio::config 'influx_user')
 INFLUX_PW=$(bashio::config 'influx_pw')
+INFLUXDBV2_URL=$(bashio::config 'influxDBv2.url')
+INFLUXDBV2_TOKEN=$(bashio::config 'influxDBv2.token')
+INFLUXDBV2_ORG=$(bashio::config 'influxDBv2.organization')
+INFLUXDBV2_BUCKET=$(bashio::config 'influxDBv2.bucket')
 RETENTION=$(bashio::config 'retention_policy')
 DOCKER_TIMEOUT=$(bashio::config 'docker.timeout')
 SMART_TIMEOUT=$(bashio::config 'smart_monitor.timeout')
@@ -110,6 +114,22 @@ if bashio::config.true 'ipmi_sensor.enabled'; then
   sed -i "s,IP,${IPMI_IP},g" $CONFIG
   sed -i "s,INTERVAL,${IPMI_INTERVAL},g" $CONFIG
   sed -i "s,TIMEOUT,${IPMI_TIMEOUT},g" $CONFIG
+fi
+
+if bashio:config.true 'influxDBv2.enabled'; then
+  bashio::log.info "Updating config for influxdbv2"
+  {
+    echo "[[outputs.influxdb_v2]]"
+    echo "  urls = [\"INFLUXv2_URL\"]"
+    echo "  token = 'INFLUX_TOKEN'"
+    echo "  organization = 'INFLUX_ORG'"
+    echo "  bucket = 'INFLUX_BUCKET'"
+  } >> $CONFIG
+
+  sed -i "s,INFLUXv2_URL,${INFLUXDBV2_URL},g" $CONFIG
+  sed -i "s,INFLUX_TOKEN,${INFLUXDBV2_TOKEN},g" $CONFIG
+  sed -i "s,INFLUX_ORG,${INFLUXDBV2_ORG},g" $CONFIG
+  sed -i "s,INFLUX_BUCKET,${INFLUXDBV2_BUCKET},g" $CONFIG
 fi
 
 bashio::log.info "Finished updating config, Starting Telegraf"
