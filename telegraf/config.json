@@ -16,8 +16,11 @@
   "apparmor": false,
   "full_access" : true,
   "options": {
-    "influxDB" : "http://a0d7b954-influxdb:8086",
-    "influx_db" : "telegraf",
+    "influxDB" : {
+      "enabled": true,
+      "url": "http://a0d7b954-influxdb:8086",
+      "db": "telegraf"
+    },
     "kernel" : {
       "enabled" : true
     },
@@ -50,11 +53,14 @@
     }
   },
   "schema": {
-    "influxDB" : "str",
-    "influx_db" : "str",
-    "retention_policy" : "str?",
-    "influx_user" : "str?",
-    "influx_pw" : "str?",
+    "influxDB" : {
+      "enabled": "bool",
+      "url": "str",
+      "db": "str",
+      "retention_policy" : "str?",
+      "username" : "str?",
+      "password" : "str?"
+    },
     "kernel" : {
       "enabled" : "bool"
     },

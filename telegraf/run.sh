@@ -6,10 +6,10 @@ bashio::require.unprotected
 
 readonly CONFIG="/etc/telegraf/telegraf.conf"
 
-INFLUX_SERVER=$(bashio::config 'influxDB')
-INFLUX_DB=$(bashio::config 'influx_db')
-INFLUX_UN=$(bashio::config 'influx_user')
-INFLUX_PW=$(bashio::config 'influx_pw')
+INFLUX_SERVER=$(bashio::config 'influxDB.url')
+INFLUX_DB=$(bashio::config 'influxDB.db')
+INFLUX_UN=$(bashio::config 'influxDB.username')
+INFLUX_PW=$(bashio::config 'influxDB.password')
 INFLUXDBV2_URL=$(bashio::config 'influxDBv2.url')
 INFLUXDBV2_TOKEN=$(bashio::config 'influxDBv2.token')
 INFLUXDBV2_ORG=$(bashio::config 'influxDBv2.organization')
@@ -26,43 +26,46 @@ IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 
 bashio::log.info "Updating config"
 
-if bashio::var.has_value "${INFLUX_UN}"; then
+if bashio::var.true 'influxDB.enabled'; then
+  if bashio::var.has_value "${INFLUX_UN}"; then
     influx_un="  username='INFLUX_UN'"
-else
+  else
     influx_un="  # INFLUX_UN"
-fi
+  fi
 
-if bashio::var.has_value "{INFLUX_PW}"; then
+  if bashio::var.has_value "{INFLUX_PW}"; then
     influx_pw="  password='INFLUX_PW'"
-else
+  else
     influx_pw="  # INFLUX_PW"
-fi
+  fi
 
-if bashio::var.has_value "${RETENTION}"; then
+  if bashio::var.has_value "${RETENTION}"; then
     influx_ret="  retention_policy='RETENTION'"
-else
+  else
     influx_ret="  # RETENTION"
+  fi
+
+  {
+    echo "[[outputs.influxdb]]"
+    echo "  urls = ['http://a0d7b954-influxdb:8086']"
+    echo "  database = \"TELEGRAF_DB\""
+    echo "  ${influx_ret}"
+    echo "  timeout = '5s'"
+    echo "  ${influx_un}"
+    echo "  ${influx_pw}"
+  } >> $CONFIG
+
+  sed -i "s,http://a0d7b954-influxdb:8086,${INFLUX_SERVER},g" $CONFIG
+
+  sed -i "s,TELEGRAF_DB,${INFLUX_DB},g" $CONFIG
+
+  sed -i "s,INFLUX_UN,${INFLUX_UN},g" $CONFIG
+
+  sed -i "s,INFLUX_PW,${INFLUX_PW},g" $CONFIG
+
+  sed -i "s,RETENTION,${RETENTION},g" $CONFIG
+
 fi
-
-{
-  echo "[[outputs.influxdb]]"
-  echo "  urls = ['http://a0d7b954-influxdb:8086']"
-  echo "  database = \"TELEGRAF_DB\""
-  echo "  ${influx_ret}"
-  echo "  timeout = '5s'"
-  echo "  ${influx_un}"
-  echo "  ${influx_pw}"
-} >> $CONFIG
-
-sed -i "s,http://a0d7b954-influxdb:8086,${INFLUX_SERVER},g" $CONFIG
-
-sed -i "s,TELEGRAF_DB,${INFLUX_DB},g" $CONFIG
-
-sed -i "s,INFLUX_UN,${INFLUX_UN},g" $CONFIG
-
-sed -i "s,INFLUX_PW,${INFLUX_PW},g" $CONFIG
-
-sed -i "s,RETENTION,${RETENTION},g" $CONFIG
 
 if bashio::config.true 'kernel.enabled'; then
   bashio::log.info "Updating config for Kernel"
