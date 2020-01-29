@@ -26,14 +26,14 @@ IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 
 bashio::log.info "Updating config"
 
-if bashio::var.true 'influxDB.enabled'; then
+if bashio::config.true 'influxDB.enabled'; then
   if bashio::var.has_value "${INFLUX_UN}"; then
     influx_un="  username='INFLUX_UN'"
   else
     influx_un="  # INFLUX_UN"
   fi
 
-  if bashio::var.has_value "{INFLUX_PW}"; then
+  if bashio::var.has_value "${INFLUX_PW}"; then
     influx_pw="  password='INFLUX_PW'"
   else
     influx_pw="  # INFLUX_PW"
