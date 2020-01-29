@@ -14,7 +14,7 @@ RUN \
         iputils-ping \
         snmp \
         procps \
-        lm-sensors4 \
+        lm-sensors \
         smartmontools \
         ipmitool \
     && ARCH="${BUILD_ARCH}" \
