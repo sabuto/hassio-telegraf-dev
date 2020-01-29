@@ -11,13 +11,12 @@ ARG TELEGRAF_VERSION
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        iputils-ping=3:20161105-1ubuntu2 \
-#        libsnmp30=5.7.3+dfsg-1.8ubuntu3.1 \
-        snmp=5.7.3+dfsg-5ubuntu5 \
-        procps=2:3.3.12-3ubuntu1.1 \
-        lm-sensors=1:3.4.0-4 \
-        smartmontools=6.5+svn4324-1 \
-        ipmitool=1.8.18-5build1 \
+        iputils-ping \
+        snmp \
+        procps \
+        lm-sensors4 \
+        smartmontools \
+        ipmitool \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
