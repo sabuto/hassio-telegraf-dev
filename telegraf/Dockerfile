@@ -12,8 +12,8 @@ RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         iputils-ping=3:20161105-1ubuntu2 \
-        libsnmp30=5.7.3+dfsg-1.8ubuntu3.1 \
-        snmp=5.7.3+dfsg-1.8ubuntu3.1 \
+#        libsnmp30=5.7.3+dfsg-1.8ubuntu3.1 \
+        snmp=5.7.3+dfsg-5ubuntu5 \
         procps=2:3.3.12-3ubuntu1.1 \
         lm-sensors=1:3.4.0-4 \
         smartmontools=6.5+svn4324-1 \
