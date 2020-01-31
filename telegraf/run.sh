@@ -27,7 +27,7 @@ IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 
 bashio::log.info "Updating config"
 
-if bashio::var.has_value 'hostname'; then
+if bashio::var.has_value "${HOSTNAME}"; then
   sed -i "s,%HOSTNAME%,${HOSTNAME},g" $CONFIG
 else
   sed -i "s,%HOSTNAME%, ,g" $CONFIG
