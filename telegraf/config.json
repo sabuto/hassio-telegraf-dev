@@ -53,6 +53,7 @@
     }
   },
   "schema": {
+    "hostname" : "str?",
     "influxDB" : {
       "enabled": "bool",
       "url": "str",

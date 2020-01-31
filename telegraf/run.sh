@@ -6,6 +6,7 @@ bashio::require.unprotected
 
 readonly CONFIG="/etc/telegraf/telegraf.conf"
 
+HOSTNAME=$(bashio::config 'hostname')
 INFLUX_SERVER=$(bashio::config 'influxDB.url')
 INFLUX_DB=$(bashio::config 'influxDB.db')
 INFLUX_UN=$(bashio::config 'influxDB.username')
@@ -25,6 +26,12 @@ IPMI_INTERVAL=$(bashio::config 'ipmi_sensor.interval')
 IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 
 bashio::log.info "Updating config"
+
+if bashio::var.has_value 'hostname'; then
+  sed -i "s,%HOSTNAME%,${HOSTNAME},g" $CONFIG
+else
+  sed -i "s,%HOSTNAME%, ,g" $CONFIG
+fi
 
 if bashio::config.true 'influxDB.enabled'; then
   if bashio::var.has_value "${INFLUX_UN}"; then
