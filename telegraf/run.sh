@@ -29,7 +29,7 @@ IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 bashio::log.info "Updating config"
 
 if bashio::var.has_value "${HOSTNAME}"; then
-  hostname=" hostname = 'HOSTNAME'"
+  hostname="hostname = 'HOSTNAME'"
 else
   hostname=" hostname = ''"
 fi

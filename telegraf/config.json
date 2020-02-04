@@ -16,6 +16,7 @@
   "apparmor": false,
   "full_access" : true,
   "options": {
+    "hostname" : "test",
     "influxDB" : {
       "enabled": true,
       "url": "http://a0d7b954-influxdb:8086",
@@ -53,7 +54,7 @@
     }
   },
   "schema": {
-    "hostname" : "str?",
+    "hostname" : "str",
     "influxDB" : {
       "enabled": "bool",
       "url": "str",
