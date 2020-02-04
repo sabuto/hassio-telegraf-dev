@@ -48,6 +48,8 @@ fi
   echo "  omit_hostname = false"
 } >> $CONFIG
 
+sed -i "s,HOSTNAME,${HOSTNAME},g" $CONFIG
+
 if bashio::config.true 'influxDB.enabled'; then
   if bashio::var.has_value "${INFLUX_UN}"; then
     influx_un="  username='INFLUX_UN'"
