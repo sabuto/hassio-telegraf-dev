@@ -2,6 +2,7 @@
 declare influx_un
 declare influx_pw
 declare influx_ret
+declare hostname
 bashio::require.unprotected
 
 readonly CONFIG="/etc/telegraf/telegraf.conf"
@@ -28,10 +29,24 @@ IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 bashio::log.info "Updating config"
 
 if bashio::var.has_value "${HOSTNAME}"; then
-  sed -i "s,%HOSTNAME%,${HOSTNAME},g" $CONFIG
+  hostname=" hostname = 'HOSTNAME'"
 else
-  sed -i "s,%HOSTNAME%, ,g" $CONFIG
+  hostname=" hostname = ''"
 fi
+
+{
+  echo "[agent]"
+  echo "  interval = \"10s\""
+  echo "  round_interval = true"
+  echo "  metric_batch_size = 1000"
+  echo "  metric_buffer_limit = 10000"
+  echo "  collection_jitter = \"0s\""
+  echo "  flush_interval = \"10s\""
+  echo "  flush_jitter = \"0s\""
+  echo "  precision = \"\""
+  echo "  ${hostname}"
+  echo "  omit_hostname = false"
+} >> $CONFIG
 
 if bashio::config.true 'influxDB.enabled'; then
   if bashio::var.has_value "${INFLUX_UN}"; then
