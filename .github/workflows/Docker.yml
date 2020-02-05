@@ -9,8 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: hadolint
-        run: docker run --rm -i hadolint/hadolint < telegraf/Dockerfile
+#       - name: hadolint
+#         run: docker run --rm -i hadolint/hadolint < telegraf/Dockerfile
       - name: shellcheck
         run: shellcheck telegraf/run.sh
       - name: build docker files
