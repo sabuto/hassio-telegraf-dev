@@ -1,9 +1,0 @@
-name: if release
-
-on:
-  push:
-    tags:
-      - 0.*
-      
-jobs:
-  
