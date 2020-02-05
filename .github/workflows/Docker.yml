@@ -10,7 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: check refs
-        run: echo ${{ github.ref }}
+        run: |
+          echo ${{ github.ref }}
+          tag=$(git for-each-ref --sort=-v:refname --count=1 --format '%(refname)' refs/tags/[0-9]*.[0-9]*.[0-9]* refs/tags/v[0-9]*.[0-9]*.[0-9]* | cut -d / -f 3-)
+          tag_commit=$(git rev-list -n 1 $tag)
+          echo $tag
+          echo $tag_commit
 #       - name: hadolint
 #         run: docker run --rm -i hadolint/hadolint < telegraf/Dockerfile
 #       - name: shellcheck
