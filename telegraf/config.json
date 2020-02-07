@@ -13,8 +13,10 @@
   "docker_api": true,
   "host_network": true,
   "host_pid": true,
+  "host_dbus": true,
   "apparmor": false,
   "full_access" : true,
+  "devices": ["/dev/sda:/dev/sda:rwm", "/dev/sdb:/dev/sdb:rwm"],
   "options": {
     "hostname" : "test",
     "influxDB" : {
