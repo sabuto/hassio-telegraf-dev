@@ -1,4 +1,4 @@
-name: if release
+name: lint, build and deploy - dev
 
 on:
   push:
