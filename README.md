@@ -12,6 +12,9 @@
 ![Travis Ci][travis-shield]
 [![Github Activity][commits-shield]][commits]
 
+# Please Note!
+Upgrading to 0.5.0 although isn't nessaserily a breaking change, hte config has been adjusted and how it is interprited so please make sure you update the config too!
+
 # Notable mentions
 
 I wanted to mention people/repos that i have borrowed code from to make this work and also who have helped me make this work.
@@ -40,72 +43,78 @@ Scroll down to Rob's Repo and install Telegraf. Give it a few minutes to install
 
 The config is simple but there are some things to consider,
 
+```yaml
+hostname: ''
+```
+This allows you set your hostname to something easy
+
 You must have a running influxDB instance (the hassio plugin works)
 
-```bash
-influxDB
+```yaml
+influxDB:
+  enabled: true,
+  url: 'http://a0d7b954-influxdb:8086'
+  db: telegraf
+  retention_policy: optional
+  username: optional
+  password: optional
 ```
+This has been moved into it's own block as that made sense with the other options, some have been made optional (previous versions)
 
-This allows you to specify the location and port for your influxDB instance (the port must be specified)
 
-```bash
-influx_db
-```
-
-This is the database within influxDB to use (you may need to create this)
-
-```bash
-influx_user
-```
-
-This is the username telegraf will use to communicate with InfluxDB
-
-```bash
-influx_pw
-```
-
-This is the password to coinside with the username
-
-```bash
-retention_policy
-```
-
-This is the retention policy to use (again you may need to specify this when setting up the db)
-
-```json
-kernel : {
+```yaml
+kernel:
   enabled: true
-}
 ```
 
 This monitors the kernel
 
-```json
-swap : {
+```yaml
+swap:
   enabled: true
-}
 ```
 
 This monitors the swap usasge
 
-```bash
-docker : {
+```yaml
+docker:
   enabled: false
   timeout: 5s
-}
 ```
 
-This allows you to monitor your docker containers, the timeout allows you to specify how long it should try before connection is dropped *PLEASE NOTE: IN ORDER TO DO THIS YOU MUST TURN OFF PROTECTION MODE*
+This monitors the docker containers
 
-
-```bash
-smart_monitor : {
+```yaml
+smart_monitor:
   enabled: false
-  timeout : "30s"
-}
+  timeout: 30s
 ```
 
 This allows you to monitor the temperature of the hard drives
+
+```yaml
+impi_sensor:
+  enabled: false
+  interval: 30s
+  timeout: 20s
+  server_user_id: user
+  server_password: password
+  server_protocol: lan
+  server_ip: 192.168.1.2
+```
+
+This allows you to enable the impi settings.
+
+```yaml
+influxDBv2:
+  enabled: false
+  url: 'http://127.0.0.1:9999'
+  organization: ''
+  token: ''
+  bucket: ''
+```
+
+This allows you to use InfluxDBv2 if you have an instance running.
 
 # Known issues
 
