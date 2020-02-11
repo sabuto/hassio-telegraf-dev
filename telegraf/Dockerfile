@@ -1,6 +1,5 @@
 ARG BUILD_FROM
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+FROM $BUILD_FROM
 
 ARG BUILD_ARCH=amd64
 
@@ -10,22 +9,16 @@ ARG TELEGRAF_VERSION
 
 RUN \
     apt-get update \
-    && apt-get install -y --no-install-recommends \
-        iputils-ping \
-        snmp \
-        procps \
-        lm-sensors \
-        smartmontools \
-        ipmitool \
+    && apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools/bionic-backports ipmitool \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
     \
     && TELEGRAF="$TELEGRAF_VERSION" \
     && curl -J -L -o /tmp/telegraf.deb \
-        "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF}-1_${ARCH}.deb" \
-    && dpkg --install /tmp/telegraf.deb \
-    && apt-get clean \
+        "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF}-1_${ARCH}.deb"
+
+    RUN dpkg --install /tmp/telegraf.deb \
     && rm -rf \
         /tmp/* \
         /var/lib/apt/lists/*

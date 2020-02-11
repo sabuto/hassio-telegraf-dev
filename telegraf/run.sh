@@ -2,10 +2,12 @@
 declare influx_un
 declare influx_pw
 declare influx_ret
+declare hostname
 bashio::require.unprotected
 
 readonly CONFIG="/etc/telegraf/telegraf.conf"
 
+HOSTNAME=$(bashio::config 'hostname')
 INFLUX_SERVER=$(bashio::config 'influxDB.url')
 INFLUX_DB=$(bashio::config 'influxDB.db')
 INFLUX_UN=$(bashio::config 'influxDB.username')
@@ -14,7 +16,7 @@ INFLUXDBV2_URL=$(bashio::config 'influxDBv2.url')
 INFLUXDBV2_TOKEN=$(bashio::config 'influxDBv2.token')
 INFLUXDBV2_ORG=$(bashio::config 'influxDBv2.organization')
 INFLUXDBV2_BUCKET=$(bashio::config 'influxDBv2.bucket')
-RETENTION=$(bashio::config 'retention_policy')
+RETENTION=$(bashio::config 'influxDB.retention_policy')
 DOCKER_TIMEOUT=$(bashio::config 'docker.timeout')
 SMART_TIMEOUT=$(bashio::config 'smart_monitor.timeout')
 IPMI_USER=$(bashio::config 'ipmi_sensor.server_user_id')
@@ -25,6 +27,28 @@ IPMI_INTERVAL=$(bashio::config 'ipmi_sensor.interval')
 IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
 
 bashio::log.info "Updating config"
+
+if bashio::var.has_value "${HOSTNAME}"; then
+  hostname="hostname = 'HOSTNAME'"
+else
+  hostname=" hostname = ''"
+fi
+
+{
+  echo "[agent]"
+  echo "  interval = \"10s\""
+  echo "  round_interval = true"
+  echo "  metric_batch_size = 1000"
+  echo "  metric_buffer_limit = 10000"
+  echo "  collection_jitter = \"0s\""
+  echo "  flush_interval = \"10s\""
+  echo "  flush_jitter = \"0s\""
+  echo "  precision = \"\""
+  echo "  ${hostname}"
+  echo "  omit_hostname = false"
+} >> $CONFIG
+
+sed -i "s,HOSTNAME,${HOSTNAME},g" $CONFIG
 
 if bashio::config.true 'influxDB.enabled'; then
   if bashio::var.has_value "${INFLUX_UN}"; then
@@ -117,6 +141,21 @@ if bashio::config.true 'ipmi_sensor.enabled'; then
   sed -i "s,IP,${IPMI_IP},g" $CONFIG
   sed -i "s,INTERVAL,${IPMI_INTERVAL},g" $CONFIG
   sed -i "s,TIMEOUT,${IPMI_TIMEOUT},g" $CONFIG
+fi
+
+if bashio::config.true 'thermal.enabled'; then
+  bashio::log.info "Updating config for thermal zone sensors"
+  for i in $(shopt -s nullglob; echo /sys/class/thermal/thermal_zone*); do
+    bashio::log.info "...$i"
+    name=$(basename "$i")
+    {
+      echo "[[inputs.file]]"
+      echo "  files = [\"$i/temp\"]"
+      echo "  name_override = \"$name\""
+      echo "  data_format = \"value\""
+      echo "  data_type = \"integer\""
+    } >> $CONFIG
+  done
 fi
 
 if bashio::config.true 'influxDBv2.enabled'; then
