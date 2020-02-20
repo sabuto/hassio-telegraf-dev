@@ -29,9 +29,9 @@ CUSTOM_CONF=$(bashio::config 'custom_conf')
 
 bashio::log.info "${CUSTOM_CONF}"
 
-# if bashio::config.true "${CUSTOM_CONF}"; then
-#   bashio::log.info "Using custom conf file"
-# fi
+if bashio::var.true "${CUSTOM_CONF}"; then
+  bashio::log.info "Using custom conf file"
+fi
 
 bashio::log.info "Updating config"
 
