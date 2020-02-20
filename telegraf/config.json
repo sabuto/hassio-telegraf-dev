@@ -2,7 +2,7 @@
   "name": "Telegraf",
   "version": "dev",
   "slug": "hassio_telegraf",
-  "description" : "An addon to add telegraf to hassio. dev test",
+  "description" : "An addon to add telegraf to hassio. Dev Branch",
   "url" : "https://github.com/Sabuto/hassio-telegraf",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "before",
@@ -16,6 +16,7 @@
   "apparmor": false,
   "full_access" : true,
   "options": {
+    "custom_conf": false,
     "hostname" : "test",
     "influxDB" : {
       "enabled": true,
@@ -27,7 +28,7 @@
     },
     "swap" : {
       "enabled" : true
-    },
+    }, 
     "docker" : {
       "enabled" : false,
       "timeout" : "5s"
@@ -57,6 +58,7 @@
     }
   },
   "schema": {
+    "custom_conf": false,
     "hostname" : "str",
     "influxDB" : {
       "enabled": "bool",
@@ -101,5 +103,5 @@
     }
   },
   "ports" : {},
-  "image" : "sabuto/{arch}-hassio-telegraf-dev"
+  "image" : "sabuto/{arch}-hassio-telegraf"
 }

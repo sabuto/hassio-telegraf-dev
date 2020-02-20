@@ -1,10 +1,6 @@
 name: lint, build and deploy - dev
 
-on:
-  push:
-    branches: [master]
-    tags:
-      - 0.*
+on: push
       
 jobs:
   build:
