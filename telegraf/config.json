@@ -16,7 +16,10 @@
   "apparmor": false,
   "full_access" : true,
   "options": {
-    "custom_conf": false,
+    "custom_conf": {
+      "enabled": false,
+      "location": "/share/telegraf.conf"
+    },
     "hostname" : "test",
     "influxDB" : {
       "enabled": true,
