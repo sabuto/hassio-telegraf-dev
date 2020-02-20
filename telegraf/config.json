@@ -61,7 +61,10 @@
     }
   },
   "schema": {
-    "custom_conf": "bool",
+    "custom_conf": {
+      "enabled": "bool",
+      "location": "str"
+    },
     "hostname" : "str",
     "influxDB" : {
       "enabled": "bool",
