@@ -25,6 +25,11 @@ IPMI_PROTOCOL=$(bashio::config 'ipmi_sensor.server_protocol')
 IPMI_IP=$(bashio::config 'ipmi_sensor.server_ip')
 IPMI_INTERVAL=$(bashio::config 'ipmi_sensor.interval')
 IPMI_TIMEOUT=$(bashio::config 'ipmi_sensor.timeout')
+CUSTOM_CONF=$(bashio::config 'custom_conf')
+
+if bashio::config.true "${CUSTOM_CONF}"; then
+  bashio::log.info "Using custom conf file"
+fi
 
 bashio::log.info "Updating config"
 
