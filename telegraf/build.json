@@ -7,6 +7,6 @@
     "armhf": "ghcr.io/hassio-addons/debian-base/armhf:4.2.1"
   },
   "args": {
-    "TELEGRAF_VERSION": "1.21.3"
+    "TELEGRAF_VERSION": "1.17.3"
   }
 }
