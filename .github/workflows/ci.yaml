@@ -13,4 +13,4 @@ on:
 
 jobs:
   workflows:
-    uses: sabuto/workflows/.github/workflows/addon-ci.yaml@main
+    uses: Sabuto/workflows/.github/workflows/addon-ci.yaml@main
