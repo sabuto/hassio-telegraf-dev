@@ -23,7 +23,7 @@ To Install this addon simply go to: Hassio->Addon-store.
 
 Add <https://github.com/Sabuto/hassio-repo> in the add repository by URL box.
 
-Scroll down to Rob's Repo and install Telegraf. 
+Scroll down to Rob's Repo and install Telegraf.
 
 Give it a few minutes to install and update.
 
@@ -59,7 +59,7 @@ influxDB:
   password: optional
 ```
 
-This has been moved into it's own block as that made sense with the other options, some have been made optional (previous versions)
+This has been moved into it's own block as that made sense with the other options
 
 ```yaml
 kernel:
