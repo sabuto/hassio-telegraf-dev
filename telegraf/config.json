@@ -4,13 +4,7 @@
   "slug": "hassio_telegraf",
   "description": "An addon to add telegraf to hassio.",
   "url": "https://github.com/Sabuto/hassio-telegraf",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "init": false,
   "startup": "services",
   "boot": "manual",
@@ -21,16 +15,8 @@
   "host_network": true,
   "host_pid": true,
   "apparmor": false,
-  "map": [
-    "config:rw",
-    "ssl:rw",
-    "addons:rw",
-    "backup:rw",
-    "share:rw"
-  ],
-  "privileged": [
-    "SYS_ADMIN"
-  ],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "backup:rw", "share:rw"],
+  "privileged": ["SYS_ADMIN"],
   "full_access": true,
   "options": {
     "custom_conf": {
@@ -136,5 +122,5 @@
   "ports": {
     "9273/tcp": 9273
   },
-  "image" : "sabuto/{arch}-hassio-telegraf-dev"
+  "image": "ghcr.io/sabuto/hassio-telegraf-dev/{arch}"
 }
