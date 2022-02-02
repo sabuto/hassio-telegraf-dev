@@ -8,8 +8,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base system
 ARG BUILD_ARCH=amd64
 
-ARG TELEGRAF_VERSION
-
 # Setup base
 # RUN \
 #     apt-get update \
@@ -32,7 +30,7 @@ Run ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi
 RUN curl -J -L -o /tmp/telegraf.deb \
-     "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb"
+     "https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb"
 RUN ls /tmp
 RUN dpkg --install /tmp/telegraf.deb
 RUN rm -fr \
