@@ -4,7 +4,7 @@
   "slug": "hassio_telegraf",
   "description": "An addon to add telegraf to hassio.",
   "url": "https://github.com/Sabuto/hassio-telegraf",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "arch": ["aarch64"],
   "init": false,
   "startup": "services",
   "boot": "manual",
