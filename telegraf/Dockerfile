@@ -11,20 +11,34 @@ ARG BUILD_ARCH=amd64
 ARG TELEGRAF_VERSION
 
 # Setup base
-RUN \
-    apt-get update \
-    && apt-get install -y --no-install-recommends \
-        iputils-ping snmp procps lm-sensors smartmontools ipmitool \
-    && ARCH="${BUILD_ARCH}" \
+# RUN \
+#     apt-get update \
+#     && apt-get install -y --no-install-recommends \
+#         iputils-ping snmp procps lm-sensors smartmontools ipmitool \
+#     && ARCH="${BUILD_ARCH}" \
+#     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+#     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
+#     && curl -J -L -o /tmp/telegraf.deb \
+#         "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb" \
+#     && dpkg --install /tmp/telegraf.deb \
+#     && rm -fr \
+#         /tmp/* \
+#         /var/{cache,log}/* \
+#         /var/lib/apt/lists/* 
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool
+Run ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
-    && curl -J -L -o /tmp/telegraf.deb \
-        "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb" \
-    && dpkg --install /tmp/telegraf.deb \
-    && rm -fr \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi
+RUN curl -J -L -o /tmp/telegraf.deb \
+     "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb"
+RUN dpkg --install /tmp/telegraf.deb
+RUN rm -fr \
         /tmp/* \
         /var/{cache,log}/* \
         /var/lib/apt/lists/* 
+
 
 # Copy root filesystem
 COPY rootfs /
