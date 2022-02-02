@@ -2,7 +2,7 @@
 
 <!--- Is this a feature request or an issue? ---!>
 
-# Description of issue
+## Description of issue
 
 ## Ideas to fix
 
