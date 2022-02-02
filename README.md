@@ -12,10 +12,11 @@
 ![Travis Ci][travis-shield]
 [![Github Activity][commits-shield]][commits]
 
-# Please Note!
+## Please Note
+
 Upgrading to 0.5.0 although isn't nessaserily a breaking change, hte config has been adjusted and how it is interprited so please make sure you update the config too!
 
-# Notable mentions
+## Notable mentions
 
 I wanted to mention people/repos that i have borrowed code from to make this work and also who have helped me make this work.
 
@@ -27,19 +28,19 @@ Third I want to say thanks to [@Daniel Welch](https://github.com/danielwelch). I
 
 All of these people are amazing!
 
-# Description
+## Description
 
 This is a very simple hassio plugin that ebnables you to run telegraf on your hassio system, I am still working on this so please bear with me, I am happy to accept PR's
 
-# Installation
+## Installation
 
 To Install this addon simply go to: Hassio->Addon-store.
 
-Then add https://github.com/Sabuto/hassio-repo in the add repository by URL box.
+Then add <https://github.com/Sabuto/hassio-repo> in the add repository by URL box.
 
 Scroll down to Rob's Repo and install Telegraf. Give it a few minutes to install and update.
 
-# Config
+## Config
 
 The config is simple but there are some things to consider,
 
@@ -54,6 +55,7 @@ This allows you to specify a custom configuration file so you can add things for
 ```yaml
 hostname: ''
 ```
+
 This allows you set your hostname to something easy
 
 You must have a running influxDB instance (the hassio plugin works)
@@ -67,8 +69,8 @@ influxDB:
   username: optional
   password: optional
 ```
-This has been moved into it's own block as that made sense with the other options, some have been made optional (previous versions)
 
+This has been moved into it's own block as that made sense with the other options, some have been made optional (previous versions)
 
 ```yaml
 kernel:
@@ -129,13 +131,14 @@ prometheus:
   enabled: false
   metrics_path: '/metrics'
 ```
+
 This allows you to use the promethus output
 
-# Known issues
+## Known issues
 
 ~~For some reason at the moment i have figured out how to communicate with the docker.sock therefore i cannot get the process' for docker contaisners. I will look into this and fix it when i can, if you have any idea please submit a PR~~
 
-# TO-DO
+## TO-DO
 
 ~~Add dev branch~~
 

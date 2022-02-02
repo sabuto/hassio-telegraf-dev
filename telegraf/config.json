@@ -9,7 +9,6 @@
   "startup": "services",
   "boot": "manual",
   "hassio_api": true,
-  "hassio_role": "default",
   "auth_api": true,
   "docker_api": true,
   "host_network": true,
@@ -121,6 +120,9 @@
   },
   "ports": {
     "9273/tcp": 9273
+  },
+  "ports_description": {
+    "9273/tcp": "Default telegraf communication port"
   },
   "image": "ghcr.io/sabuto/hassio-telegraf-dev/{arch}"
 }
