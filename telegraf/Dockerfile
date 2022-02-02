@@ -31,7 +31,7 @@ RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-senso
 Run ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi
-RUN FILENAME="${telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb"
+RUN FILENAME="${telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb";
 RUN curl -J -L -o /tmp/telegraf.deb \
      "https://dl.influxdata.com/telegraf/releases/${FILENAME}"
 RUN ls /tmp
