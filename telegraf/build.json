@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "aarch64": "ghcr.io/hassio-addons/debian-base/aarch64:4.2.1"
+    "aarch64": "ghcr.io/hassio-addons/debian-base/aarch64:5.2.3"
   },
   "args": {
     "TELEGRAF_VERSION": "1.17.3"
