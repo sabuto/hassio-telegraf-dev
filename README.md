@@ -14,15 +14,18 @@
 
 ## Description
 
-This is a very simple hassio plugin that ebnables you to run telegraf on your hassio system, I am still working on this so please bear with me, I am happy to accept PR's
+This is a very simple hassio plugin that ebnables you to run telegraf.
+I am still working on this so please bear with me, I am happy to accept PR's.
 
 ## Installation
 
 To Install this addon simply go to: Hassio->Addon-store.
 
-Then add <https://github.com/Sabuto/hassio-repo> in the add repository by URL box.
+Add <https://github.com/Sabuto/hassio-repo> in the add repository by URL box.
 
-Scroll down to Rob's Repo and install Telegraf. Give it a few minutes to install and update.
+Scroll down to Rob's Repo and install Telegraf. 
+
+Give it a few minutes to install and update.
 
 ## Config
 
@@ -34,7 +37,9 @@ custom_conf:
   location: /share/telegraf.conf
 ```
 
-This allows you to specify a custom configuration file so you can add things for yourself if this addon doesn't currently support it. Please note this must be a full telegraf config file not just parts.
+This allows you to specify a custom configuration file
+You can add things for yourself if this addon doesn't currently support it.
+Please note this must be a full telegraf config file not just parts.
 
 ```yaml
 hostname: ''
@@ -118,10 +123,6 @@ prometheus:
 
 This allows you to use the promethus output
 
-## Known issues
-
-~~For some reason at the moment i have figured out how to communicate with the docker.sock therefore i cannot get the process' for docker contaisners. I will look into this and fix it when i can, if you have any idea please submit a PR~~
-
 ## TO-DO
 
 ~~Add dev branch~~
@@ -132,9 +133,7 @@ Add images to installation steps
 
 ~~Add Issue Template~~
 
-Configure more options to edit for the inputs
-
-Configure different outputs (so it doesn't have to be influxDB dependant, would appreciate it if people could reccomend ones they would find useful.)
+~~ Configure more options to edit for the inputs ~~
 
 ## License
 
