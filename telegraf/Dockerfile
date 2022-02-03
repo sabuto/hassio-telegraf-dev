@@ -22,14 +22,12 @@ ARG BUILD_ARCH=amd64
 #     && rm -fr \
 #         /tmp/* \
 #         /var/{cache,log}/* \
-#         /var/lib/apt/lists/* 
+#         /var/lib/apt/lists/*
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool
-RUN ARCH=BUILD_ARCH \
-    && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi
-RUN echo " arch is $ARCH"
+RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then BUILD_ARCH="arm64"; fi \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; then BUILD_ARCH="armhf"; fi
 RUN curl -J -L -o /tmp/telegraf.deb \
     "https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${BUILD_ARCH}.deb"
 RUN ls /tmp
@@ -37,7 +35,9 @@ RUN dpkg --install /tmp/telegraf.deb
 RUN rm -fr \
     /tmp/* \
     /var/{cache,log}/* \
-    /var/lib/apt/lists/* 
+    /var/lib/apt/lists/*
+RUN if [ "${BUILD_ARCH}" = "arm64" ]; then BUILD_ARCH="aarch64"; fi \
+    && if [ "${BUILD_ARCH}" = "armhf" ]; then BUILD_ARCH="armv7"; fi
 
 
 # Copy root filesystem
