@@ -30,9 +30,9 @@ RUN ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
     && echo ${ARCH} \
-    && wget "https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb"
-RUN dpkg --install telegraf_1.17.3-1_${ARCH}.deb
-RUN rm -f telegraf_1.17.3-1_${ARCH}.deb
+    && wget "https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb" \
+    && dpkg --install telegraf_1.17.3-1_${ARCH}.deb \
+    && rm -f telegraf_1.17.3-1_${ARCH}.deb
 RUN rm -fr \
     /tmp/* \
     /var/{cache,log}/* \
