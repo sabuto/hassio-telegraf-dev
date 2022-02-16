@@ -27,13 +27,13 @@ ARG BUILD_ARCH=amd64
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool wget
 RUN ARCH=
-RUN echo "${BUILD_ARCH}"
 RUN case "${BUILD_ARCH}" in \
       aarch64) ARCH='arm64';; \
       armv7) ARCH='armhf';; \
       amd64) ARCH='amd64' ;; \
       *) echo "Unsupported architecture: ${BUILD_ARCH}"; exit 1;; \
-    esac
+    esac \
+RUN echo "${ARCH}"
 RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb
 RUN dpkg --install telegraf_1.17.3-1_${ARCH}.deb
 RUN rm -f telegraf_1.17.3-1_${ARCH}.deb
