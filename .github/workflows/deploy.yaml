@@ -16,4 +16,4 @@ jobs:
   workflows:
     uses: sabuto/workflows/.github/workflows/addon-deploy.yaml@main
     secrets:
-      DISPATCH_TOKEN: ${{ secrets.GIT_TOKEN }}
+      DISPATCH_TOKEN: ${{ secrets.GITHUB_PSA }}
