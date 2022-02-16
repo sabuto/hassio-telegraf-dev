@@ -25,12 +25,10 @@ ARG BUILD_ARCH=amd64
 #         /var/lib/apt/lists/*
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool
+RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool wget
 RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then BUILD_ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then BUILD_ARCH="armhf"; fi
-RUN curl -J -L -o /tmp/telegraf.deb \
-    "https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${BUILD_ARCH}.deb"
-RUN ls /tmp
+RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${BUILD_ARCH}.deb
 RUN dpkg --install /tmp/telegraf.deb
 RUN rm -fr \
     /tmp/* \
