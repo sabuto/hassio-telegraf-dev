@@ -26,17 +26,18 @@ ARG BUILD_ARCH=amd64
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool wget
-RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then BUILD_ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then BUILD_ARCH="armhf"; fi
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${BUILD_ARCH}.deb
-RUN dpkg --install telegraf_1.17.3-1_${BUILD_ARCH}.deb
-RUN rm -f telegraf_1.17.3-1_${BUILD_ARCH}.deb
+RUN ARCH="${BUILD_ARCH}"
+RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi
+RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb
+RUN dpkg --install telegraf_1.17.3-1_${ARCH}.deb
+RUN rm -f telegraf_1.17.3-1_${ARCH}.deb
 RUN rm -fr \
     /tmp/* \
     /var/{cache,log}/* \
     /var/lib/apt/lists/*
-RUN if [ "${BUILD_ARCH}" = "arm64" ]; then BUILD_ARCH="aarch64"; fi \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; then BUILD_ARCH="armv7"; fi
+#RUN if [ "${BUILD_ARCH}" = "arm64" ]; then BUILD_ARCH="aarch64"; fi \
+#    && if [ "${BUILD_ARCH}" = "armhf" ]; then BUILD_ARCH="armv7"; fi
 
 
 # Copy root filesystem
