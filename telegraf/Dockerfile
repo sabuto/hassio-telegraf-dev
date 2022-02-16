@@ -27,7 +27,7 @@ ARG BUILD_ARCH=amd64
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-sensors smartmontools ipmitool wget
 RUN ARCH=
-RUN case "${BUILD_ARCH}" in \
+RUN case "${BUILD_ARCH##*-}" in \
       aarch64) ARCH='arm64';; \
       armv7) ARCH='armhf';; \
       amd64) ARCH='amd64' ;; \
