@@ -37,9 +37,6 @@ RUN rm -fr \
     /tmp/* \
     /var/{cache,log}/* \
     /var/lib/apt/lists/*
-#RUN if [ "${BUILD_ARCH}" = "arm64" ]; then BUILD_ARCH="aarch64"; fi \
-#    && if [ "${BUILD_ARCH}" = "armhf" ]; then BUILD_ARCH="armv7"; fi
-
 
 # Copy root filesystem
 COPY rootfs /
