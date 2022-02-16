@@ -32,7 +32,7 @@ RUN case "${BUILD_ARCH}" in \
       armv7) ARCH='armhf';; \
       amd64) ARCH='amd64' ;; \
       *) echo "Unsupported architecture: ${BUILD_ARCH}"; exit 1;; \
-    esac \
+    esac
 RUN echo "${ARCH}"
 RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${ARCH}.deb
 RUN dpkg --install telegraf_1.17.3-1_${ARCH}.deb
