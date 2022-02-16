@@ -29,7 +29,8 @@ RUN apt-get install -y --no-install-recommends iputils-ping snmp procps lm-senso
 RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then BUILD_ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then BUILD_ARCH="armhf"; fi
 RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_1.17.3-1_${BUILD_ARCH}.deb
-RUN dpkg --install /tmp/telegraf.deb
+RUN dpkg --install telegraf_1.17.3-1_${BUILD_ARCH}.deb
+RUN rm -f telegraf_1.17.3-1_${BUILD_ARCH}.deb
 RUN rm -fr \
     /tmp/* \
     /var/{cache,log}/* \
